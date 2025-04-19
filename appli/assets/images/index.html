@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Suivi des Étudiants</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#" id="dashboard-link">
+                                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="filiere-link">
+                                <i class="fas fa-graduation-cap me-2"></i>Filières
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="classe-link">
+                                <i class="fas fa-users me-2"></i>Classes
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="matiere-link">
+                                <i class="fas fa-book me-2"></i>Matières
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="prof-link">
+                                <i class="fas fa-chalkboard-teacher me-2"></i>Professeurs
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="etudiant-link">
+                                <i class="fas fa-user-graduate me-2"></i>Étudiants
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard de Suivi des Étudiants</h1>
+                </div>
+
+                <!-- Dashboard Cards -->
+                <div id="dashboard-content" class="content-section">
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card text-white bg-primary h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Filières</h5>
+                                    <p class="card-text" id="filiere-count">0</p>
+                                    <a href="#" class="btn btn-light" id="add-filiere-btn">Ajouter Filière</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card text-white bg-success h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Classes</h5>
+                                    <p class="card-text" id="classe-count">0</p>
+                                    <a href="#" class="btn btn-light" id="add-classe-btn">Ajouter Classe</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card text-white bg-info h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Matières</h5>
+                                    <p class="card-text" id="matiere-count">0</p>
+                                    <a href="#" class="btn btn-light" id="add-matiere-btn">Ajouter Matière</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="card text-white bg-warning h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Professeurs</h5>
+                                    <p class="card-text" id="prof-count">0</p>
+                                    <a href="#" class="btn btn-light" id="add-prof-btn">Ajouter Professeur</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card text-white bg-danger h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Étudiants</h5>
+                                    <p class="card-text" id="etudiant-count">0</p>
+                                    <a href="#" class="btn btn-light" id="add-etudiant-btn">Ajouter Étudiant</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulaire d'ajout de filière -->
+                <div id="filiere-content" class="content-section" style="display: none;">
+                    <h2>Gestion des Filières</h2>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Ajouter une Filière</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="filiere-form">
+                                <div class="mb-3">
+                                    <label for="filiere-nom" class="form-label">Nom de la Filière</label>
+                                    <input type="text" class="form-control" id="filiere-nom" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="filiere-description" class="form-label">Description</label>
+                                    <textarea class="form-control" id="filiere-description" rows="3"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Liste des Filières</h4>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nom</th>
+                                        <th>Description</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="filiere-table-body">
+                                    <!-- Les filières seront ajoutées ici dynamiquement -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulaire d'ajout de classe -->
+                <div id="classe-content" class="content-section" style="display: none;">
+                    <h2>Gestion des Classes</h2>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Ajouter une Classe</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="classe-form">
+                                <div class="mb-3">
+                                    <label for="classe-nom" class="form-label">Nom de la Classe</label>
+                                    <input type="text" class="form-control" id="classe-nom" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="classe-filiere" class="form-label">Filière</label>
+                                    <select class="form-select" id="classe-filiere" required>
+                                        <option value="">Sélectionner une filière</option>
+                                        <!-- Les options seront ajoutées dynamiquement -->
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Liste des Classes</h4>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nom</th>
+                                        <th>Filière</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="classe-table-body">
+                                    <!-- Les classes seront ajoutées ici dynamiquement -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulaire d'ajout de matière -->
+                <div id="matiere-content" class="content-section" style="display: none;">
+                    <h2>Gestion des Matières</h2>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Ajouter une Matière</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="matiere-form">
+                                <div class="mb-3">
+                                    <label for="matiere-nom" class="form-label">Nom de la Matière</label>
+                                    <input type="text" class="form-control" id="matiere-nom" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="matiere-coefficient" class="form-label">Coefficient</label>
+                                    <input type="number" class="form-control" id="matiere-coefficient" min="1" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Liste des Matières</h4>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nom</th>
+                                        <th>Coefficient</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="matiere-table-body">
+                                    <!-- Les matières seront ajoutées ici dynamiquement -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulaire d'ajout de professeur -->
+                <div id="prof-content" class="content-section" style="display: none;">
+                    <h2>Gestion des Professeurs</h2>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Ajouter un Professeur</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="prof-form">
+                                <div class="mb-3">
+                                    <label for="prof-nom" class="form-label">Nom</label>
+                                    <input type="text" class="form-control" id="prof-nom" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="prof-prenom" class="form-label">Prénom</label>
+                                    <input type="text" class="form-control" id="prof-prenom" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="prof-email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="prof-email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="prof-telephone" class="form-label">Téléphone</label>
+                                    <input type="tel" class="form-control" id="prof-telephone">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="prof-matiere" class="form-label">Matière enseignée</label>
+                                    <select class="form-select" id="prof-matiere" required>
+                                        <option value="">Sélectionner une matière</option>
+                                        <!-- Les options seront ajoutées dynamiquement -->
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Liste des Professeurs</h4>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nom</th>
+                                        <th>Prénom</th>
+                                        <th>Email</th>
+                                        <th>Matière</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="prof-table-body">
+                                    <!-- Les professeurs seront ajoutés ici dynamiquement -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulaire d'ajout d'étudiant -->
+                <div id="etudiant-content" class="content-section" style="display: none;">
+                    <h2>Gestion des Étudiants</h2>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Ajouter un Étudiant</h4>
+                        </div>
+                        <div class="card-body">
+                            <form id="etudiant-form">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="etudiant-nom" class="form-label">Nom</label>
+                                        <input type="text" class="form-control" id="etudiant-nom" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="etudiant-prenom" class="form-label">Prénom</label>
+                                        <input type="text" class="form-control" id="etudiant-prenom" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="etudiant-date-naissance" class="form-label">Date de Naissance</label>
+                                        <input type="date" class="form-control" id="etudiant-date-naissance" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="etudiant-lieu-naissance" class="form-label">Lieu de Naissance</label>
+                                        <input type="text" class="form-control" id="etudiant-lieu-naissance" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="etudiant-matricule" class="form-label">Matricule</label>
+                                        <input type="text" class="form-control" id="etudiant-matricule" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="etudiant-date-inscription" class="form-label">Date d'Inscription</label>
+                                        <input type="date" class="form-control" id="etudiant-date-inscription" required>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="etudiant-filiere" class="form-label">Filière</label>
+                                        <select class="form-select" id="etudiant-filiere" required>
+                                            <option value="">Sélectionner une filière</option>
+                                            <!-- Les options seront ajoutées dynamiquement -->
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="etudiant-classe" class="form-label">Classe</label>
+                                        <select class="form-select" id="etudiant-classe" required>
+                                            <option value="">Sélectionner une classe</option>
+                                            <!-- Les options seront ajoutées dynamiquement -->
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="etudiant-photo" class="form-label">Photo</label>
+                                    <input type="file" class="form-control" id="etudiant-photo" accept="image/*">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Liste des Étudiants</h4>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Photo</th>
+                                        <th>Matricule</th>
+                                        <th>Nom</th>
+                                        <th>Prénom</th>
+                                        <th>Filière</th>
+                                        <th>Classe</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="etudiant-table-body">
+                                    <!-- Les étudiants seront ajoutés ici dynamiquement -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Graphique de progression de l'étudiant -->
+                <div id="progression-content" class="content-section" style="display: none;">
+                    <h2>Progression de l'Étudiant</h2>
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h4 id="etudiant-progression-nom"></h4>
+                                    <p id="etudiant-progression-info"></p>
+                                </div>
+                                <div class="col-md-6 text-end">
+                                    <select class="form-select w-50 d-inline-block" id="progression-matiere">
+                                        <option value="">Toutes les matières</option>
+                                        <!-- Les options seront ajoutées dynamiquement -->
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="progression-chart" height="100"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal pour voir/modifier les données -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalTitle">Modifier</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="editModalBody">
+                    <!-- Le contenu sera injecté dynamiquement -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary" id="saveEditBtn">Enregistrer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
